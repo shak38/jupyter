@@ -476,7 +476,11 @@ returning."
               (get-buffer-create " *jupyter-ioloop-send*")))
     (erase-buffer)
     (let (print-level print-length)
-      (prin1 plist (current-buffer)))
+      ;; PLIST can carry buffer-derived strings (e.g. completion
+      ;; candidates) whose text properties are meaningless to the ioloop
+      ;; subprocess and can themselves share or cycle through other
+      ;; property values, which some Emacs builds print incorrectly.
+      (prin1 (zmq--strip-text-properties plist) (current-buffer)))
     (buffer-string)))
 
 (cl-defmethod jupyter-send ((ioloop jupyter-ioloop) &rest args)
