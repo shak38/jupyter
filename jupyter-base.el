@@ -1,3 +1,4 @@
+
 ;;; jupyter-base.el --- Core definitions for Jupyter -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2018-2024 Nathaniel Nicandro
@@ -141,10 +142,14 @@ FORMAT-STRING and ARGS have the same meaning as in `message'."
 (defvar jupyter-default-timeout 2.5
   "The default timeout in seconds for `jupyter-wait-until'.")
 
-(defvar jupyter-long-timeout 10
+(defvar jupyter-long-timeout 90
   "A longer timeout than `jupyter-default-timeout' used for some operations.
 A longer timeout is needed, for example, when retrieving the
-`jupyter-kernel-info' to allow for the kernel to startup.")
+`jupyter-kernel-info' to allow for the kernel to startup.
+
+Bumped from the upstream default of 10s: some kernels (e.g. xhaskell-mhs,
+whose MicroHs-based runtime interprets its own Prelude at startup) can
+legitimately take much longer than 10s to report idle for the first time.")
 
 (defconst jupyter-version "1.0"
   "Current version of Jupyter.")
