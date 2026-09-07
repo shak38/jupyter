@@ -1,4 +1,3 @@
-
 ;;; jupyter-base.el --- Core definitions for Jupyter -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2018-2024 Nathaniel Nicandro
