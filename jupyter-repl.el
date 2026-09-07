@@ -99,10 +99,17 @@
   :type 'integer
   :group 'jupyter-repl)
 
-(defcustom jupyter-repl-maximum-is-complete-timeout 2
+(defcustom jupyter-repl-maximum-is-complete-timeout 10
   "Maximum number of seconds to wait for an is-complete reply.
 When no is-complete reply is received from the kernel within this
-timeout, the built-in is-complete handler is used."
+timeout, the built-in is-complete handler is used.
+
+Bumped from the upstream default of 2s: 2s can be too tight for some
+kernels (e.g. xhaskell-mhs), causing this to fall back to the generic
+built-in is-complete handler (which doesn't understand kernel-specific
+syntax, e.g. Haskell's layout rules) for the rest of the session, even
+though the kernel's own is_complete_request handling works fine given a
+little more time."
   :type 'integer
   :group 'jupyter-repl)
 
